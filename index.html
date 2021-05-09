@@ -99,7 +99,7 @@
   var c="";
 
   //event listerner for phone number input
-  phoneno.addEventListener('keypress',(event)=>{
+ const phone= ()=>{
     const phonenoval= phoneno.value.trim();
         //validate phone number
     if(phonenoval == ""){
@@ -143,6 +143,12 @@
     }
   
      
+  }
+  phoneno.addEventListener('keypress',(event)=>{
+      phone();
+  })
+  phoneno.addEventListener('touchstart',(event)=>{
+      phone();
   })
 
 //redirecting to otp page on success
@@ -191,7 +197,7 @@
   //phone number format test function
   function validatePhoneNumber(input_str) 
 {
-    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/im;
 
     return re.test(input_str);
 }
@@ -234,9 +240,7 @@ function validateFullName(input_str)
       setSuccessmsg(email);
   }
  //validate phone numbet
-  if(phonenoval == ""){
-      setErrormsg(phoneno,"Phone Number cannot be blank");   
-  }
+ phone();
 
   successmsg(fullnameval,phonenoval);
   }
