@@ -135,10 +135,10 @@
       else{
         setErrormsg(phoneno,"invaild number or cellular network");
       }
-    if(digit1<=36){
+    if(digit1<36){
       document.getElementById('state').innerHTML =c+ states[digit1];
     }
-    else{
+    else if(digit1>=36){
         setErrormsg(phoneno,"invaild state code");
     }
   
