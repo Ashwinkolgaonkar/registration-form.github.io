@@ -1,0 +1,259 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/beb7e4dbbd.js" crossorigin="anonymous"></script>
+</head>
+<body><dl></dl>
+    <div class="container">
+        <form class= "form" id="form">
+            <div class ="header">
+                <h2>Registration form</h2>
+            </div>
+            <div class="form-control">
+                <label>Full Name :</label>
+                <input type="text" name= "" id="fullname" placeholder="Enter your full name" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error msg</small>
+            </div>
+            
+            <div class="form-control">
+                <label>Email :</label>
+                <input type="email" name= "" id="email" placeholder="Enter your Email" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error msg</small>
+            </div>
+            
+            <div class="form-control">
+                <label>Phone Number :</label>
+                <input type="text" name= "" id="phoneno" placeholder="Enter your phone number (121)-123-4531" autocomplete="off">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <img src="images\jio.png" id="jio" alt="">
+                <img src="images\idea.png" id="idea" alt="">
+                <img src="images\vodafone.png" id="vodafone" alt="">
+                <label id="state"></label>
+                <small>Error msg</small>
+            </div>
+            <input class ="btn" type="submit" value="submit">
+        </form>
+  </div>
+</body>
+
+<script type="text/javascript">
+   //javascript code
+  const form= document.getElementById('form');
+  const fullname= document.getElementById('fullname');
+  const email= document.getElementById('email');
+  const phoneno= document.getElementById('phoneno');
+    
+  //array to store the states for the state code
+  var states=[ "Andhra Pradesh",
+                "Arunachal Pradesh",
+                "Assam",
+                "Bihar",
+                "Chhattisgarh",
+                "Goa",
+                "Gujarat",
+                "Haryana",
+                "Himachal Pradesh",
+                "Jammu and Kashmir",
+                "Jharkhand",
+                "Karnataka",
+                "Kerala",
+                "Madhya Pradesh",
+                "Maharashtra",
+                "Manipur",
+                "Meghalaya",
+                "Mizoram",
+                "Nagaland",
+                "Odisha",
+                "Punjab",
+                "Rajasthan",
+                "Sikkim",
+                "Tamil Nadu",
+                "Telangana",
+                "Tripura",
+                "Uttarakhand",
+                "Uttar Pradesh",
+                "West Bengal",
+                "Andaman and Nicobar Islands",
+                "Chandigarh",
+                "Dadra and Nagar Haveli",
+                "Daman and Diu",
+                "Delhi",
+                "Lakshadweep",
+                "Puducherry"];
+
+  //event listerner
+  form.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      validate();
+  })
+  var c="";
+
+  //event listerner for phone number input
+  phoneno.addEventListener('keypress',(event)=>{
+    const phonenoval= phoneno.value.trim();
+        //validate phone number
+    if(phonenoval == ""){
+      setErrormsg(phoneno,"Phone Number cannot be blank");   
+  }
+  else if(!validatePhoneNumber(phonenoval)){
+    setErrormsg(phoneno,"please enter phone number is ths format (121)-123-4531");
+  }
+
+  else{
+      setSuccessmsg(phoneno);
+     
+  }
+     //validating the cellular network and state code
+      var digit=parseInt(phoneno.value.substring(1,4));
+      var digit1=parseInt(phoneno.value.substring(6,8))
+
+      if(digit>=629 && digit<=799)
+      {
+          document.getElementById('jio').style.visibility="visible";
+           c="jio-";
+      }
+      else if(digit>=801 && digit<=920)
+      {
+          document.getElementById('idea').style.visibility="visible";
+          c="idea-"
+      }
+      else if(digit>=921 && digit<=999)
+      {
+          document.getElementById('vodafone').style.visibility="visible";
+           c="vodafone-"
+      }
+      else{
+        setErrormsg(phoneno,"invaild number or cellular network");
+      }
+    if(digit1<=36){
+      document.getElementById('state').innerHTML =c+ states[digit1];
+    }
+    else{
+        setErrormsg(phoneno,"invaild state code");
+    }
+  
+     
+  })
+
+//redirecting to otp page on success
+  const sendData = (fullnameval,phonenoval,sRate, count) =>{
+      if(sRate===count){
+          alert("successfull");
+           var fistname =fullnameval.substring(0,fullnameval.indexOf(' '));
+          location.href="success.html?fistname="+fistname+"?phonenoval=" +phonenoval;
+         
+             
+      }
+
+  }
+ //on sucessfull details entered
+  const successmsg = (fullnameval,phonenoval) =>{
+      let formcon =document.getElementsByClassName('form-control');
+      var count=formcon.length-1;
+      for( var i=0; i<formcon.length;i++){
+        if(formcon[i].className==="form-control success"){
+            var sRate=0+i;
+            sendData(fullnameval,phonenoval,sRate,count);
+        }
+        else{
+            return false;
+        }
+      }
+  }
+
+
+  //email validation function
+  const isEmail =(emailval)=>{
+      var atsymbol=emailval.indexOf('@');
+    if(atsymbol<1){
+        return false;
+    }
+    var dot=emailval.lastIndexOf('.');
+    if(dot<=atsymbol+3){
+        return false;
+    }
+    if(dot==emailval.length-1){
+        return false;
+    }
+    return true;
+  }
+
+  //phone number format test function
+  function validatePhoneNumber(input_str) 
+{
+    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+    return re.test(input_str);
+}
+
+//full name test function
+function validateFullName(input_str) 
+{
+    var re = /^[a-zA-z]{4,10}?[\s]?[a-zA-Z]{4,10}$/;
+
+    return re.test(input_str);
+}
+
+//validation function
+  const validate = () =>{
+    const fullnameval= fullname.value.trim();
+  const emailval= email.value.trim();
+  const phonenoval= phoneno.value.trim();
+   //validate full name
+  if(fullnameval ==""){
+      setErrormsg(fullname,"full name cannot be blank");   
+  }
+  else if(!validateFullName(fullnameval))
+  {
+      setErrormsg(fullname,"invalid full name must contain min 4 char and 2 words Ex Ashwin kolgaonkar");
+  }
+
+  else{
+      setSuccessmsg(fullname)
+  }
+  //validate email
+  if(emailval == ""){
+      setErrormsg(email,"Email cannot be blank");   
+  }
+  else if(!isEmail(emailval))
+  {
+      setErrormsg(email,"email invalid");
+  }
+
+  else{
+      setSuccessmsg(email);
+  }
+ //validate phone numbet
+  if(phonenoval == ""){
+      setErrormsg(phoneno,"Phone Number cannot be blank");   
+  }
+
+  successmsg(fullnameval,phonenoval);
+  }
+
+  //error function on ivalid entry
+  function setErrormsg(input,errormsg){
+      const formControl=input.parentElement;
+      const small= formControl.querySelector('small');
+      formControl.className='form-control error';
+      small.innerText=errormsg;
+  }
+  //error function on correct detials
+  function setSuccessmsg(input,successmsg){
+      const formControl=input.parentElement;
+      const small= formControl.querySelector('small');
+      formControl.className='form-control success';
+      small.innerText=successmsg;
+  }
+</script>
+</html>

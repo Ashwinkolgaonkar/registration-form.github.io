@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <form class="form" id="form"> 
+        <h2 ID="name">success</h2>
+        <p id="phone"></p>
+        <input type="otp" name= "" class="otp" id="otp" placeholder=" enter otp here" autocomplete="off">
+        
+        <input class ="btn" type="submit" value="submit">
+        <small id="error"></small>
+    </form>  
+</body>
+<script>
+    //javascrpit code
+        var querString1= location.search.substring(10);
+        
+        var name =querString1.substring(0,querString1.indexOf("?"));// to get first name
+        var phone=querString1.substring(querString1.indexOf("("));// phone number
+        //updating the detial in msg
+        document.getElementById("name").innerHTML="Dear "+name +" ,";
+        document.getElementById("phone").innerHTML="Thank you for your enquiry. A 4 digit verification number has been sent to your phone number: "+phone+" please enter it bellow";
+        var count=0;//counter to count number of submits
+
+        //event
+        form.addEventListener('submit',(event)=>{
+            event.preventDefault();
+            count++;
+            //if count == 3  means acceded 3 attempts =>404 error
+            if(count==3){
+                location.href="404.html"
+            }
+            validate();
+        }) 
+        //to genterate random 4 digit otp
+        var r=Math.random();
+        s=r*10000;
+        v=Math.round(s)+1;
+        console.log("otp is "+v);  
+
+        //validation
+        const validate = ()=>{  
+
+            if(parseInt(document.getElementById("otp").value)==v){
+            successmsg();}
+            else {
+                errormsg();
+                document.getElementById("error").innerHTML="entered a invalid otp please try again, " +(3-count) +" attempts left"
+            }
+        }
+
+        function successmsg(){
+            location.href ="http://pixel6.co";
+        }
+
+        function errormsg(){
+        document.getElementById("error").innerHTML="entered and invalid otp please try again";
+        }
+    </script>
+
+
+</html>

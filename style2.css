@@ -1,0 +1,44 @@
+/* style for body element*/
+body{
+    
+    
+    align-items:center;
+    justify-content: center;
+    display: flex;
+    min-height: 100vh;
+    width:100vw;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+  }
+   
+/* style for submit button*/
+.btn{
+    background-color: rgb(128, 241, 241);
+    border-radius: 10px;
+    width:20%;
+    height:5vh;
+    font-size: 15px;
+    
+   
+
+   
+}
+ /*error message */
+#error{
+    color: red;
+    font-size: small;
+    display: block;
+}
+
+/* for otp text box*/
+.otp{
+    border-radius: 10px;
+    width:20%;
+    height:5vh;
+    font-size: 15px;
+}
+/*for the div container */
+.form{
+    padding: 40px;;
+ align-items: center;
+}

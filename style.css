@@ -1,0 +1,145 @@
+body{
+    background-image:url("background.png");
+    background-size:100%;
+    align-items:center;
+    justify-content: center;
+    display: flex;
+    min-height: 100vh;
+    width:100vw;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+  }
+
+
+.container{
+    background-color: aliceblue;
+    width:clac(100vw-65vw);
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+   
+}
+/* submit button*/
+.btn{
+    background-color: rgb(128, 241, 241);
+    border-radius: 10px;
+}
+
+/* headers*/
+.header{
+    background-color: rgb(128, 241, 241);
+    padding:20px 0;
+    border-radius: 10px;
+}
+.header h2{
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: center;
+}
+/* form*/
+.form{
+    padding: 40px;;
+}
+
+.form-control{
+  margin: 40px;
+  position: relative;
+}
+/*  labels*/
+.form-control label{
+    display: inline-block;
+    margin-bottom: 5px;
+}
+/* textbox*/
+.form-control input{
+    width:100%;
+    border:2px solid blueviolet;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 12px;
+}
+.form-control input:focus{
+    outline:0;
+    border-color: #777;
+}
+
+/* color of text box border on succes and error*/
+ .form-control.success input{
+     border-color:#09f16a;
+ }
+ .form-control.error input{
+    border-color: #eb210a;
+}
+/* circle check icons*/
+.form-control i{
+    position:absolute;
+   right:12px;
+   top:38px;
+   visibility: hidden;    
+}
+/* vissibilty of error message on error*/
+.form-control.error small{
+    visibility: visible;
+}
+
+/* cellular network logo style*/
+img {
+    position:absolute;
+    right:-5px;
+    top:-5px;
+    visibility: hidden;
+    
+}
+
+/* error message*/
+small{
+    font-size:small ;
+}
+
+/* state display styling*/
+#state{
+    position:absolute;
+    right:45px;
+    top:5px;
+    font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+/*error message vissibily hidden before no error */
+.form-control small{
+    color:#eb210a;
+    position: absolute;
+    left:0;
+    visibility: hidden;
+}
+/* color of circle icons on success and error*/
+ .form-control.success i.fa-check-circle{
+    color:#09f16a;
+    visibility: visible;
+ }
+ .form-control.error i.fa-exclamation-circle{
+    color:#eb210a;
+    visibility: visible;
+ }
+ /* form and button common styles*/
+.form .btn{
+    display: block;
+    font-size: 16px;
+    padding: 15px 0;
+    margin-top: 20px;
+    width: 100%;
+    border:none;
+    text-transform: uppercase;
+    transition: all 1s ease;
+
+}
+/* on button hover*/
+.form .btn:hover{
+    background:linear-gradient(to right ,#74ebd5,#9face6)
+}
+@media(max-width:998px){S
+    .conatiner{
+        width:clac(100vw-35vw);
+        max-width: 100%;
+    }
+}
