@@ -32,7 +32,7 @@
             
             <div class="form-control">
                 <label>Phone Number :</label>
-                <input type="text" name= "" id="phoneno" placeholder="Enter your phone number (121)-123-4531" autocomplete="off">
+                <input type="tel" name= "" id="phoneno" placeholder="Enter your phone number (121)-123-4531" autocomplete="off">
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
                 <img src="images\jio.png" id="jio" alt="">
@@ -105,10 +105,12 @@
     if(phonenoval == ""){
       setErrormsg(phoneno,"Phone Number cannot be blank");   
   }
-  else if(!validatePhoneNumber(phonenoval)){
-    setErrormsg(phoneno,"please enter phone number is ths format (121)-123-4531");
+  else if(phonenoval.length>14){
+    setErrormsg(phoneno,"please enter 10 digit number");
   }
-
+  else if(phonenoval.length<14){
+    setErrormsg(phoneno,"please enter 10 digit number");
+  }
   else{
       setSuccessmsg(phoneno);
      
@@ -133,7 +135,7 @@
            c="vodafone-"
       }
       else{
-        setErrormsg(phoneno,"invaild number or cellular network");
+        setErrormsg(phoneno,"invaild number or cellular code is wrong");
       }
     if(digit1<36){
       document.getElementById('state').innerHTML =c+ states[digit1];
@@ -145,11 +147,39 @@
      
   }
   phoneno.addEventListener('keypress',(event)=>{
+    var phoneno= document.getElementById('phoneno');
+    const phonenoval= phoneno.value.trim();
+    if(!isNaN(phonenoval)){
+ 
+    phoneno.value=(phonenoval.replaceAll("\\D+","").replace(/^(\d{3})(\d{3})(\d{3})$/,"($1)-$2-$3"));
+    }
+else{
+    setErrormsg(phoneno,"please enter numbers oly");
+    }
       phone();
   })
   phoneno.addEventListener('touchstart',(event)=>{
       phone();
   })
+  form.addEventListener('keypress',(event)=>{
+      validate();
+  })
+  form.addEventListener('keydown',(event)=>{
+      validate();
+      phone();
+  })
+  form.addEventListener('keyup',(event)=>{
+      validate();
+      phone();
+  })
+  form.addEventListener('blur',(event)=>{
+      validate();
+      phone();
+  })
+
+
+
+
 
 //redirecting to otp page on success
   const sendData = (fullnameval,phonenoval,sRate, count) =>{
@@ -196,16 +226,16 @@
 
   //phone number format test function
   function validatePhoneNumber(input_str) 
-{
-    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4}$/im;
+{  
+    var re = /^[0-9]{10}$/im;
 
-    return re.test(input_str);
+    return re.test(inputf);
 }
 
 //full name test function
 function validateFullName(input_str) 
 {
-    var re = /^[a-zA-z]{4,10}?[\s]?[a-zA-Z]{4,10}$/;
+    var re = /^(([a-zA-z]{4,10})+([\s][a-zA-Z]{4,10})+)+$/;
 
     return re.test(input_str);
 }
