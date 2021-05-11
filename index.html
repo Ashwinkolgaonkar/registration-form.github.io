@@ -35,9 +35,10 @@
                 <input type="tel" name= "" id="phoneno" placeholder="Enter your phone number (121)-123-4531" autocomplete="off">
                 <i class="fas fa-check-circle"></i>
                 <i class="fas fa-exclamation-circle"></i>
+                <div id='img'>
                 <img src="images\jio.png" id="jio" alt="">
                 <img src="images\idea.png" id="idea" alt="">
-                <img src="images\vodafone.png" id="vodafone" alt="">
+                <img src="images\vodafone.png" id="vodafone" alt=""></div>
                 <label id="state"></label>
                 <small>Error msg</small>
             </div>
@@ -89,7 +90,9 @@
                 "Daman and Diu",
                 "Delhi",
                 "Lakshadweep",
-                "Puducherry"];
+                "Puducherry",
+                ""
+            ];
 
   //event listerner
   form.addEventListener('submit',(event)=>{
@@ -108,6 +111,7 @@
   else if(phonenoval.length>14){
     setErrormsg(phoneno,"please enter 10 digit number");
   }
+ 
   else if(phonenoval.length<14){
     setErrormsg(phoneno,"please enter 10 digit number");
   }
@@ -122,27 +126,50 @@
       if(digit>=629 && digit<=799)
       {
           document.getElementById('jio').style.visibility="visible";
+          document.getElementById('idea').style.visibility="hidden";
+          document.getElementById('vodafone').style.visibility="hidden";
            c="jio-";
+           if(digit1<36){
+      document.getElementById('state').innerHTML =c+ states[digit1];
+    }
+    else {
+        document.getElementById('state').innerHTML = states[36];
+        setErrormsg(phoneno,"invaild state code or cellular network code");
+    }
       }
       else if(digit>=801 && digit<=920)
       {
           document.getElementById('idea').style.visibility="visible";
+          document.getElementById('jio').style.visibility="hidden";
+          document.getElementById('vodafone').style.visibility="hidden";
           c="idea-"
+          if(digit1<36){
+      document.getElementById('state').innerHTML =c+ states[digit1];
+    }
+    else {
+        document.getElementById('state').innerHTML =states[36];
+        setErrormsg(phoneno,"invaild state code or cellular network code");
+    }
       }
       else if(digit>=921 && digit<=999)
       {
           document.getElementById('vodafone').style.visibility="visible";
+          document.getElementById('idea').style.visibility="hidden";
+          document.getElementById('jio').style.visibility="hidden";
            c="vodafone-"
-      }
-      else{
-        setErrormsg(phoneno,"invaild number or cellular code is wrong");
-      }
-    if(digit1<36){
+           if(digit1<36){
       document.getElementById('state').innerHTML =c+ states[digit1];
     }
-    else if(digit1>=36){
-        setErrormsg(phoneno,"invaild state code");
+    else {
+        document.getElementById('state').innerHTML =states[36];  
+        setErrormsg(phoneno,"invaild state code or cellular network code");
     }
+      }
+      else{
+        setErrormsg(phoneno,"invaild number or cellular network  code is wrong");
+        document.getElementById('img').style.visibility="hidden";
+      }
+ 
   
      
   }
@@ -167,6 +194,7 @@ else{
   form.addEventListener('keydown',(event)=>{
       validate();
       phone();
+      
   })
   form.addEventListener('keyup',(event)=>{
       validate();
@@ -176,6 +204,22 @@ else{
       validate();
       phone();
   })
+  phoneno.addEventListener('keydown',(event)=>{
+    const phonenoval= phoneno.value.trim();
+      if(event.keyCode==8){
+          if(phonenoval.length<10){document.getElementById("phoneno").value="";
+          document.getElementById('jio').style.visibility="hidden";
+          document.getElementById('idea').style.visibility="hidden";
+          document.getElementById('vodafone').style.visibility="hidden";
+          document.getElementById('state').innerHTML =states[36];  
+          setErrormsg(phoneno,"enter correct number")
+        }
+          
+      }
+      
+  })
+
+
 
 
 
