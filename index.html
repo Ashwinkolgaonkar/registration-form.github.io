@@ -133,8 +133,9 @@
       document.getElementById('state').innerHTML =c+ states[digit1];
     }
     else {
-        document.getElementById('state').innerHTML = states[36];
-        setErrormsg(phoneno,"invaild state code or cellular network code");
+
+        document.getElementById('state').innerHTML = states[parseInt(digit1/100)];
+        
     }
       }
       else if(digit>=801 && digit<=920)
@@ -147,8 +148,8 @@
       document.getElementById('state').innerHTML =c+ states[digit1];
     }
     else {
-        document.getElementById('state').innerHTML =states[36];
-        setErrormsg(phoneno,"invaild state code or cellular network code");
+        document.getElementById('state').innerHTML =states[parseInt(digit1/100)];
+      
     }
       }
       else if(digit>=921 && digit<=999)
@@ -161,8 +162,8 @@
       document.getElementById('state').innerHTML =c+ states[digit1];
     }
     else {
-        document.getElementById('state').innerHTML =states[36];  
-        setErrormsg(phoneno,"invaild state code or cellular network code");
+        document.getElementById('state').innerHTML =states[parseInt(digit1/100)];  
+       
     }
       }
       else{
@@ -262,7 +263,12 @@ else{
     if(dot<=atsymbol+3){
         return false;
     }
-    if(dot==emailval.length-1){
+    var dot=emailval.lastIndexOf('.');
+    if(dot<=atsymbol+3){
+        return false;
+    }
+
+    if(dot+2>=emailval.length-1 ||dot+3<emailval.length-1){
         return false;
     }
     return true;
@@ -279,7 +285,7 @@ else{
 //full name test function
 function validateFullName(input_str) 
 {
-    var re = /^(([a-zA-z]{4,10})+([\s][a-zA-Z]{4,10})+)+$/;
+    var re = /^(([a-zA-z]{4,10})+([\s]{1,10})+([a-zA-Z]{4,10}))+$/;
 
     return re.test(input_str);
 }
